@@ -1,8 +1,8 @@
 {
-  "name": "hz-vue-webpack",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "hz-vue-cli",
+  "version": "1.0.1",
+  "description": "vue-cli",
+  "main": "./main.js",
   "bin": {
     "hz": "./main.js"
   },
@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "elester",
+  "private": false,
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",

@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 // --这种用法是为了防止操作系统用户没有将node装在默认的/usr/bin路径里。当系统看到这一行的时候，
 // 首先会到env设置里查找node的安装路径，再调用对应路径下的解释器程序完成操作。
-const program = require("commander");
+const { program } = require("commander");
 const download = require("download-git-repo");
 const inquirer = require("inquirer");
 const handlebars = require("handlebars");
 const fs = require("fs");
+const path = require('path');
 const ora = require("ora");
 const chalk = require("chalk");
 const symbols = require("log-symbols");
-
 program
   .version("0.0.1", "-v, --version")
-  .helpOption('-h,--HELP')
+  .helpOption('-h,-hepl,--HELP')
   .option('init projectname', '生成一个vue项目')
   .command("init <name>")
   .description("生成一个vue项目")
@@ -34,7 +34,7 @@ program
         }
       ])
       .then(answers => {
-        const targetPath = path.resolve(__dirname,name);
+        const targetPath = path.resolve(process.cwd(),name);
         const spinner = ora("正在下载模板...");
         spinner.start();
         download(
@@ -63,6 +63,7 @@ program
               console.log(
                 chalk.greenBright("开启项目") + '\n' +
                 chalk.greenBright("cd " + name) + '\n' + 
+                chalk.greenBright("npm install") + '\n' + 
                 chalk.greenBright("npm run dev"));
             } else {
               spinner.fail();
@@ -71,7 +72,7 @@ program
           }
         );
       }).catch(err=>{
-        console.log(chalk.red(error));
+        console.log(chalk.red(err));
       })
   });
 //解析命令行
